@@ -160,7 +160,7 @@ for page in range(1,3):
 #Correct values
 url_df['Business Name']=url_df['Business Name'].str.replace('</em>','')
 url_df['Business Name']=url_df['Business Name'].str.replace('<em>','')
-
+url_df['Phone']=url_df['Phone'].astype(str).apply(lambda x: x.replace('[','').replace(']','')) 
 
 
 url_df.to_excel('outputfile.xlsx')
