@@ -16,9 +16,6 @@ from serpapi import GoogleSearch
 
 # ## Boston
 
-# In[2]:
-
-
 params = {
   "engine": "google_maps",
   "q": "stone masonry, boston",
@@ -33,13 +30,7 @@ results = search.get_dict()
 local_results = results["local_results"]
 
 
-# In[3]:
-
-
 data=[]
-
-
-# In[4]:
 
 
 for item in local_results:
@@ -47,15 +38,6 @@ for item in local_results:
         data.append([item['title'], item['phone'],item['address']])
     except:
         pass
-
-
-# In[ ]:
-
-
-
-
-
-# In[7]:
 
 
 params = {
@@ -79,9 +61,6 @@ for item in local_results:
         pass
 
 
-# In[9]:
-
-
 params = {
   "engine": "google_maps",
   "q": "stone masonry, boston",
@@ -101,9 +80,6 @@ for item in local_results:
         data.append([item['title'], item['phone'],item['address']])
     except:
         pass
-
-
-# In[10]:
 
 
 params = {
@@ -126,10 +102,6 @@ for item in local_results:
     except:
         pass
 
-
-# In[11]:
-
-
 params = {
   "engine": "google_maps",
   "q": "stone masonry, boston",
@@ -151,14 +123,12 @@ for item in local_results:
         pass
 
 
-# In[15]:
 
 
 
 df = pd.DataFrame(data, columns=['Business Name', 'Phone','Address'])
 
 
-# In[16]:
 
 
 # df
@@ -650,52 +620,15 @@ for item in local_results:
         pass
 
 
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[142]:
 
 
 
 df = pd.DataFrame(data, columns=['Business Name', 'Phone','Address'])
 
 
-# In[147]:
-
-
-df
-
-
-# In[146]:
-
-
 # df['Phone'] = df['Phone'].str.replace('+1','')
 df['Phone'] = df['Phone'].str.replace('[^\w\s]','')
 
 
-# In[ ]:
-
-
-
-
-
-# In[148]:
-
-
 df.to_excel('google_map_scrape_data.xlsx')
-
-
-# In[ ]:
-
-
-
 
