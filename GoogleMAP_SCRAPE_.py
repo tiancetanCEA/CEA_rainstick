@@ -1,9 +1,5 @@
 #!/usr/bin/env python
 # coding: utf-8
-
-# In[ ]:
-
-
 import re
 import json
 import requests
@@ -16,9 +12,6 @@ from serpapi import GoogleSearch
 
 # ## Boston
 
-# In[ ]:
-
-
 params = {
   "engine": "google_maps",
   "q": "stone masonry, boston",
@@ -29,9 +22,6 @@ params = {
 }
 # Change Name, Latitude, Longtitude if you want to search other things in other cities.
 # Latitude, Longtitude can be found on the google map link
-
-
-# In[6]:
 
 
 data=[]
@@ -52,9 +42,6 @@ for i in range(20,100,20):
 
 # ## Los Angeles CA
 
-# In[ ]:
-
-
 params = {
   "engine": "google_maps",
   "q": "stone masonry, Los Angeles",
@@ -63,10 +50,6 @@ params = {
   "api_key": "fcb97729c82095114593917c27518759909045f550685c5cbaf2f17e67237ad5",
   "start":0
 }
-
-
-# In[ ]:
-
 
 for i in range(20,100,20):
     params['start']=i
@@ -85,9 +68,6 @@ for i in range(20,100,20):
 
 # ## Atlanta GA
 
-# In[ ]:
-
-
 params = {
   "engine": "google_maps",
   "q": "stone masonry, Atlanda",
@@ -96,10 +76,6 @@ params = {
   "api_key": "fcb97729c82095114593917c27518759909045f550685c5cbaf2f17e67237ad5",
   "start":0
 }
-
-
-# In[ ]:
-
 
 for i in range(20,100,20):
     params['start']=i
@@ -118,9 +94,6 @@ for i in range(20,100,20):
 
 # ## Mineapolis St Paul MN
 
-# In[ ]:
-
-
 params = {
   "engine": "google_maps",
   "q": "stone masonry, Mineapolis St Paul MN",
@@ -129,10 +102,6 @@ params = {
   "api_key": "fcb97729c82095114593917c27518759909045f550685c5cbaf2f17e67237ad5",
   "start":0
 }
-
-
-# In[ ]:
-
 
 for i in range(20,100,20):
     params['start']=i
@@ -151,9 +120,6 @@ for i in range(20,100,20):
 
 # ## Houston TX
 
-# In[ ]:
-
-
 params = {
   "engine": "google_maps",
   "q": "stone masonry, Houston TX",
@@ -162,10 +128,6 @@ params = {
   "api_key": "fcb97729c82095114593917c27518759909045f550685c5cbaf2f17e67237ad5",
   "start":0
 }
-
-
-# In[ ]:
-
 
 for i in range(20,100,20):
     params['start']=i
@@ -182,14 +144,5 @@ for i in range(20,100,20):
             pass
 
 
-# In[ ]:
-
-
 df = pd.DataFrame(data, columns=['Business Name', 'Phone','Address'])
-
-
-# In[ ]:
-
-
-# df.to_excel('google_map_scrape_data.xlsx')
-
+df.to_excel('google_map_scrape_data.xlsx')
