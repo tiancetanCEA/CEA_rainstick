@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
-
 import os
 os.getcwd()
 os.chdir('/Users/apple/Desktop/cea/rank/1206') 
@@ -16,80 +13,12 @@ rainstick_open_data = pd.read_excel(io = 'open_data_1206.xlsx', sheet_name = 'Sh
 rainstick_ninox_data = pd.read_csv('ninox.csv')
 
 
-# In[2]:
-
-
-zip_data.shape,rainstick_open_data.shape,rainstick_ninox_data.shape
-
-
-# In[3]:
-
-
-zip_data.head()
-
-
-# In[4]:
-
-
-rainstick_open_data.head()
-
-
-# In[5]:
-
-
-rainstick_ninox_data.head()
-
-
-# In[6]:
-
-
-rainstick_open_data.columns
-
-
-# In[ ]:
-
-
-
-
-
-# In[7]:
-
-
-zip_data=zip_data.dropna()
-
-
-# In[ ]:
-
-
-
-
-
-# In[8]:
-
-
-
 def NormalizeData(data):
     return (data - np.min(data)) / (np.max(data) - np.min(data))
 
 
 rainstick_ninox_data['Owner Age'] = rainstick_ninox_data['Owner Age']*-1
 rainstick_ninox_data['Owner_age_scaled'] = NormalizeData(rainstick_ninox_data['Owner Age'])
-
-
-# In[9]:
-
-
-rainstick_ninox_data
-
-
-# In[ ]:
-
-
-
-
-
-# In[10]:
-
 
 
 ss_array = np.empty((0,10))
@@ -174,11 +103,6 @@ for bn, row1, row2, row3, row4, row5, row6, row7, row8 in rainstick_ninox_data[[
 
     ss = .2*f1 + .1*f2 + .1*f3 + .1*f4 + .25*f5 + .1*f5b +.1*f6 +.2*f7 + .25*f8 
     ss_array = np.append(ss_array, np.array([[bn, f1, f2,f3,f4,f5,f6, f7, f8,ss]]), axis = 0 )
-    
-
-
-# In[11]:
-
 
 
 ss_array =  pd.DataFrame(ss_array, columns = ['Name of the Firm', 'Score: Commercial Work', 
@@ -187,108 +111,27 @@ ss_array =  pd.DataFrame(ss_array, columns = ['Name of the Firm', 'Score: Commer
                                               'Score: LinkedIn Presence','Score: Website Rating',
                                               'Score: Green','Size and Stability Score'])
 
-
-# In[12]:
-
-
-
 ss_array['Size and Stability Score'] = ss_array['Size and Stability Score'].astype(float)
 
 ss_array['Size and Stability Score'] = NormalizeData(ss_array['Size and Stability Score'])
 
-
-# In[13]:
-
-
-ss_array.tail()
-
-
-# In[14]:
-
-
-# rainstick_ninox_data[rainstick_ninox_data['Name of the Firm']=='Adan Ramos Construction']
-
-
-# In[ ]:
-
-
-
-
-
-# In[15]:
-
-
-zip_data
-
-
-# In[16]:
-
-
 # zip_data['PROPERTYADDRESSZIP']=zip_data['PROPERTYADDRESSZIP'].astype('int', errors='ignore')
 
-
-# In[17]:
-
-
 zip_data=zip_data.drop_duplicates()
-
-
-# In[ ]:
-
-
-
-
-
-# In[18]:
 
 
 df1=pd.merge(rainstick_ninox_data,zip_data,left_on='Zip Code',right_on='PROPERTYADDRESSZIP',how='left')
 
 
-# In[19]:
-
-
-df1
-
-
-# In[20]:
-
-
 df1=df1.drop_duplicates()
-
-
-# In[21]:
-
 
 df1['If_SF'] = df1['COMBINEDSTATISTICALAREA']=='San Jose-San Francisco-Oakland, CA'
 
-
-# In[22]:
-
-
-# df1.to_excel('testestest.xlsx')
-
-
-# In[23]:
-
-
 df2=pd.merge(rainstick_open_data,ss_array,left_on='Name',right_on='Name of the Firm',how='left')
-
-
-# In[24]:
-
 
 df1=df1.iloc[:,[2,-1]]
 
-
-# In[25]:
-
-
 df3=pd.merge(df2,df1,left_on='Name',right_on='Name of the Firm',how='left')
-
-
-# In[26]:
-
 
 df3=df3.drop(columns=['Name of the Firm_x', 'Score: Commercial Work',
        'Score: # Employees', 'Score: Years in Biz', 'Score: Owner Age',
@@ -296,33 +139,8 @@ df3=df3.drop(columns=['Name of the Firm_x', 'Score: Commercial Work',
        'Score: Website Rating', 'Score: Green', 'Name of the Firm_y',])
 
 
-# In[27]:
-
-
-df3.columns
-
-
-# In[28]:
-
-
 df3 =df3.replace({'If_SF': {True: 'Yes', False: 'No'}})
-
-
-# In[29]:
-
 
 df3=df3.drop_duplicates()
 
-
-# In[30]:
-
-
-df3
-
-
-# In[31]:
-
-
-
-df3.to_excel('Rainstick_opendata_1206---testetstsetts--.xlsx')
-
+df3.to_excel('Rainstick_opendata_1206-.xlsx')
